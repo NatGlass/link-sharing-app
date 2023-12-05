@@ -123,7 +123,7 @@ describe("Registration form - password confirmation validation", () => {
 
     await waitFor(() => {
       const errorMessage = screen.queryByTestId(
-        "password-confirmation-error-message"
+        "confirm-password-error-message"
       );
       expect(errorMessage).toHaveTextContent("Cannot be empty");
     });
