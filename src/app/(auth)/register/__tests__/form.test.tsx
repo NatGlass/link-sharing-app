@@ -37,4 +37,21 @@ describe("Registration form - email validation", () => {
       expect(errorMessage).toBeInTheDocument();
     });
   });
+
+  it("should not display an error when the email is valid", async () => {
+    render(<RegisterForm />);
+
+    const input = screen.getByLabelText("Email address");
+    const submitButton = screen.getByRole("button", {
+      name: "Create new account",
+    });
+
+    fireEvent.change(input, { target: { value: "validemail@email.com" } });
+    fireEvent.click(submitButton);
+
+    await waitFor(() => {
+      const errorMessage = screen.queryByText("Invalid email");
+      expect(errorMessage).not.toBeInTheDocument();
+    });
+  });
 });
