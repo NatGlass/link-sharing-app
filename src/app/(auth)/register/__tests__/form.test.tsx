@@ -90,4 +90,21 @@ describe("Registration form - password validation", () => {
       expect(errorMessage).toHaveTextContent("Too short");
     });
   });
+
+  it("should not display error message when password is valid", async () => {
+    render(<RegisterForm />);
+
+    const input = screen.getByLabelText("Create password");
+    const submitButton = screen.getByRole("button", {
+      name: "Create new account",
+    });
+
+    fireEvent.change(input, { target: { value: "validpassword123" } });
+    fireEvent.click(submitButton);
+
+    await waitFor(() => {
+      const errorMessage = screen.queryByTestId("password-error-message");
+      expect(errorMessage).not.toBeInTheDocument();
+    });
+  });
 });
