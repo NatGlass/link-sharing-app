@@ -55,3 +55,22 @@ describe("Registration form - email validation", () => {
     });
   });
 });
+
+describe("Registration form - password validation", () => {
+  it("should display error message when password is empty", async () => {
+    render(<RegisterForm />);
+
+    const input = screen.getByLabelText("Create password");
+    const submitButton = screen.getByRole("button", {
+      name: "Create new account",
+    });
+
+    fireEvent.change(input, { target: { value: "" } });
+    fireEvent.click(submitButton);
+
+    await waitFor(() => {
+      const errorMessage = screen.getByText("Cannot be empty");
+      expect(errorMessage).toBeInTheDocument();
+    });
+  });
+});
