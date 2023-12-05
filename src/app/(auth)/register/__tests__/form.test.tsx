@@ -16,8 +16,8 @@ describe("Registration form - email validation", () => {
     fireEvent.click(submitButton);
 
     await waitFor(() => {
-      const errorMessage = screen.getByText("Invalid email");
-      expect(errorMessage).toBeInTheDocument();
+      const errorMessage = screen.queryByTestId("email-error-message");
+      expect(errorMessage).toHaveTextContent("Invalid email");
     });
   });
 
@@ -33,8 +33,8 @@ describe("Registration form - email validation", () => {
     fireEvent.click(submitButton);
 
     await waitFor(() => {
-      const errorMessage = screen.getByText("Cannot be empty");
-      expect(errorMessage).toBeInTheDocument();
+      const errorMessage = screen.queryByTestId("email-error-message");
+      expect(errorMessage).toHaveTextContent("Cannot be empty");
     });
   });
 
@@ -50,7 +50,7 @@ describe("Registration form - email validation", () => {
     fireEvent.click(submitButton);
 
     await waitFor(() => {
-      const errorMessage = screen.queryByText("Invalid email");
+      const errorMessage = screen.queryByTestId("email-error-message");
       expect(errorMessage).not.toBeInTheDocument();
     });
   });
@@ -69,8 +69,8 @@ describe("Registration form - password validation", () => {
     fireEvent.click(submitButton);
 
     await waitFor(() => {
-      const errorMessage = screen.getByText("Cannot be empty");
-      expect(errorMessage).toBeInTheDocument();
+      const errorMessage = screen.queryByTestId("password-error-message");
+      expect(errorMessage).toHaveTextContent("Cannot be empty");
     });
   });
 });
