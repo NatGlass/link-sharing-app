@@ -108,3 +108,24 @@ describe("Registration form - password validation", () => {
     });
   });
 });
+
+describe("Registration form - password confirmation validation", () => {
+  it("should display error message when password confirmation is empty", async () => {
+    render(<RegisterForm />);
+
+    const input = screen.getByLabelText("Confirm password");
+    const submitButton = screen.getByRole("button", {
+      name: "Create new account",
+    });
+
+    fireEvent.change(input, { target: { value: "" } });
+    fireEvent.click(submitButton);
+
+    await waitFor(() => {
+      const errorMessage = screen.queryByTestId(
+        "password-confirmation-error-message"
+      );
+      expect(errorMessage).toHaveTextContent("Cannot be empty");
+    });
+  });
+});
