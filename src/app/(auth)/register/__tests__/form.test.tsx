@@ -128,4 +128,25 @@ describe("Registration form - password confirmation validation", () => {
       expect(errorMessage).toHaveTextContent("Cannot be empty");
     });
   });
+
+  it("should display error message when password confirmation does not match", async () => {
+    render(<RegisterForm />);
+
+    const passwordInput = screen.getByLabelText("Create password");
+    const confirmPasswordInput = screen.getByLabelText("Confirm password");
+    const submitButton = screen.getByRole("button", {
+      name: "Create new account",
+    });
+
+      fireEvent.change(passwordInput, { target: { value: "password123" } });
+    fireEvent.change(confirmPasswordInput, { target: { value: "differentpassword123" } });
+    fireEvent.click(submitButton);
+
+    await waitFor(() => {
+      const errorMessage = screen.queryByTestId(
+        "confirm-password-error-message"
+      );
+      expect(errorMessage).toHaveTextContent("Passwords must match");
+    });
+  });
 });
