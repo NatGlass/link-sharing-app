@@ -5,7 +5,7 @@ const FormSchema = z.object({
     .string()
     .min(1, { message: "Cannot be empty" })
         .email({ message: "Invalid email" }),
-    password: z.string().min(1, {message: "Cannot be empty"}).min(8, { message: "Must be at least 8 characters" }),
+    password: z.string().min(1, {message: "Cannot be empty"}).min(8, { message: "Too short" }),
 });
 
 export { FormSchema };

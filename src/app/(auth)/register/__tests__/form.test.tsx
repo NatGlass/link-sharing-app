@@ -73,4 +73,21 @@ describe("Registration form - password validation", () => {
       expect(errorMessage).toHaveTextContent("Cannot be empty");
     });
   });
+
+  it("should display error message when password is less than 8 characters", async () => {
+    render(<RegisterForm />);
+
+    const input = screen.getByLabelText("Create password");
+    const submitButton = screen.getByRole("button", {
+      name: "Create new account",
+    });
+
+    fireEvent.change(input, { target: { value: "123" } });
+    fireEvent.click(submitButton);
+
+    await waitFor(() => {
+      const errorMessage = screen.queryByTestId("password-error-message");
+      expect(errorMessage).toHaveTextContent("Too short");
+    });
+  });
 });
