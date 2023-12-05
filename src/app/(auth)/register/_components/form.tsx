@@ -19,6 +19,7 @@ const RegisterForm = () => {
     resolver: zodResolver(FormSchema),
     defaultValues: {
       email: "",
+      password: "",
     },
   });
 
@@ -39,8 +40,23 @@ const RegisterForm = () => {
                 <FormControl>
                   <Input {...field} />
                 </FormControl>
-                <FormMessage>
+                <FormMessage data-testid="email-error-message">
                   {form.formState.errors.email?.message}
+                </FormMessage>
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Create password</FormLabel>
+                <FormControl>
+                  <Input type="password" {...field} />
+                </FormControl>
+                <FormMessage data-testid="password-error-message">
+                  {form.formState.errors.password?.message}
                 </FormMessage>
               </FormItem>
             )}
