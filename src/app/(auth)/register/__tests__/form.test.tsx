@@ -20,4 +20,21 @@ describe("Registration form - email validation", () => {
       expect(errorMessage).toBeInTheDocument();
     });
   });
+
+  it("should display error message when email is empty", async () => {
+    render(<RegisterForm />);
+
+    const input = screen.getByLabelText("Email address");
+    const submitButton = screen.getByRole("button", {
+      name: "Create new account",
+    });
+
+    fireEvent.change(input, { target: { value: "" } });
+    fireEvent.click(submitButton);
+
+    await waitFor(() => {
+      const errorMessage = screen.getByText("Cannot be empty");
+      expect(errorMessage).toBeInTheDocument();
+    });
+  });
 });
