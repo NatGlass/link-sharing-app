@@ -138,8 +138,10 @@ describe("Registration form - password confirmation validation", () => {
       name: "Create new account",
     });
 
-      fireEvent.change(passwordInput, { target: { value: "password123" } });
-    fireEvent.change(confirmPasswordInput, { target: { value: "differentpassword123" } });
+    fireEvent.change(passwordInput, { target: { value: "password123" } });
+    fireEvent.change(confirmPasswordInput, {
+      target: { value: "differentpassword123" },
+    });
     fireEvent.click(submitButton);
 
     await waitFor(() => {
