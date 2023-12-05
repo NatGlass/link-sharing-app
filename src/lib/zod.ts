@@ -13,6 +13,9 @@ const FormSchema = z.object({
 
 const RegisterFormSchema = FormSchema.extend({
   confirmPassword: z.string().min(1, { message: "Cannot be empty" }),
+}).refine((data) => data.password === data.confirmPassword, {
+  message: "Passwords must match",
+  path: ["confirmPassword"],
 });
 
 export { FormSchema, RegisterFormSchema };
